@@ -1,0 +1,28 @@
+
+
+FIGURE OUT (in order)
+
+-1. Gameplay (done)
+	- Explore a sea 
+	-Minimap
+	-Floating NPCs who you must give stuff to, in the sea, perhaps also finding things?
+		-Keyboard controls
+	-Four islands - start, end, and two more
+		-Point and click-esque, but through a keyboard interface
+	STATES
+		-Title screen
+		-Inventory (push)
+			- Items, saving...
+		-Ocean
+			* Serialize: Position, angle.
+		-Island
+			* Serialize: which ocean, position.
+		*Serialize: NPC state ,inventory state.
+		- End -> title
+		
+		
+0. The sort of story to go with it - islands, who you meet, sort of meaning for it.
+	- Figure out items to go with it so can plan Inventory GUI
+1. A fitting aesthetic, music and art-wise, that we can start.
+	-Need to mock up: Ocean, mini-map, inventory.
+2. Begin work on walking around the ocean, how the visuals work (moving wves?)
