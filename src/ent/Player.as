@@ -40,6 +40,11 @@ package ent
 			if (state == S_ISLAND) {
 				// how to get off island...
 			}
+			
+			if (FlxG.keys.SHIFT) {
+				velocity.x *= 3;
+				velocity.y *= 3;
+			}
 			super.update();
 		}
 		

@@ -13,7 +13,7 @@ package state
 	public class S_Ocean extends FlxState 
 	{
 		private var bg:FlxSprite;
-		private var island:FlxSprite;
+		private var island:Island	;
 		private var player:Player;
 		
 		public static const HORIZON_Y:int = 453;
@@ -26,6 +26,7 @@ package state
 			add(bg);
 			
 			player = new Player();
+			player.x = 0;
 			player.y = 700;
 			FlxG.camera.follow(player);
 			FlxG.camera.deadzone = new FlxRect((FlxG.width - player.width) / 2, HORIZON_Y + 100, player.width, player.height);
@@ -33,6 +34,8 @@ package state
 			// Islands are fixed? (In game space)
 			island = new Island(0, 0,player);
 			add(island);
+			
+			add(island.mist);
 			add(player);
 		}
 		

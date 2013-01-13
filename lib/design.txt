@@ -17,6 +17,7 @@ FIGURE OUT (in order)
 			* Serialize: Position, angle.
 		-Island
 			* Serialize: which ocean, position.
+			* entrance camera info
 		*Serialize: NPC state ,inventory state.
 		- End -> title
 		
@@ -26,3 +27,28 @@ FIGURE OUT (in order)
 1. A fitting aesthetic, music and art-wise, that we can start.
 	-Need to mock up: Ocean, mini-map, inventory.
 2. Begin work on walking around the ocean, how the visuals work (moving wves?)
+
+
+------
+
+How to makeislands fade from a distance
+0.2 scale: 
+	0.4h space to the hitbox bottom from image bottom
+	
+360 game pixels to work with for "water"
+
+Height in water: 50 px, say 20 from bottom	
+up to a bit before you touch the bottom of its hitbox,  is the lerping scale - after that it stays at normal scale	
+
+So Iguess where the island ultimately sits in the water depends on the y-pos of the hitbox of the palayer
+
+okay, so we know when a certain island is close.  a certain region is the entrance, otherwise going above it makes it start to fade out(and you can't go left/right over it so no draw order issues)
+
+if you touch the entrance, you change the camera deadzone and play a "get out of water" anim - store camera info so we can smoothly go back to it afterwards Then we load data for the "exit" region, as well as some sort of set of line segments defining the upper border of the island, the edges, etc. we respct those when walking.
+
+When we enterback to the water, go into some state where ou have to leave the entrance hitbox before going back onto the island. Moving as normal works. re-change the camera hitbox, too, to go back to the original camera info
+
+GARRR
+
+songs fading on island enter
+rain/day? music fade, images swap
