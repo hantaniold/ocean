@@ -17,7 +17,7 @@ package
 		
 		public function FMain() 
 		{
-			super(1280, 720, S_Ocean, 1, 60, 60);
+			super(1280, 720, S_Ocean, 1, 60, 30);
 			Reg.init();
 			stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 			// Center game

@@ -1,5 +1,6 @@
 package state 
 {
+	import ent.Island;
 	import ent.Player;
 	import org.flixel.FlxG;
 	import org.flixel.FlxPoint;
@@ -15,7 +16,7 @@ package state
 		private var island:FlxSprite;
 		private var player:Player;
 		
-		private const HORIZON_Y:int = 453;
+		public static const HORIZON_Y:int = 453;
 		
 		override public function create():void 
 		{
@@ -24,14 +25,15 @@ package state
 			bg.scrollFactor = new FlxPoint(0, 0);
 			add(bg);
 			
-			island = new FlxSprite(0, 0);
-			island.loadGraphic(Sprt.test_island_811_410, false, false, 811, 410);
-			add(island);
-			
 			player = new Player();
-			add(player);
+			player.y = 700;
 			FlxG.camera.follow(player);
-			FlxG.camera.deadzone = new FlxRect(300, HORIZON_Y, 600, 250);
+			FlxG.camera.deadzone = new FlxRect((FlxG.width - player.width) / 2, HORIZON_Y + 100, player.width, player.height);
+			
+			// Islands are fixed? (In game space)
+			island = new Island(0, 0,player);
+			add(island);
+			add(player);
 		}
 		
 		
