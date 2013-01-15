@@ -108,6 +108,8 @@ package org.flixel
 		 */
 		public var screen:FlxSprite;
 		
+		public var bottom:uint;
+		
 		/**
 		 * Indicates how far the camera is zoomed in.
 		 */
@@ -288,6 +290,8 @@ package org.flixel
 		 */
 		override public function update():void
 		{
+			bottom = scroll.y + height;
+			
 			//Either follow the object closely, 
 			//or doublecheck our deadzone and update accordingly.
 			if(target != null)

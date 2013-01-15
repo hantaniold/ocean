@@ -57,8 +57,10 @@ package
 			
 		
 			
+			
 			instructions.text = "Press X to make more \"Water\"\nPress C to make more Tims\n";
 			if (FlxG.keys.DOWN) {
+				
 				BRAD.velocity.y = 100;
 			} else if (FlxG.keys.UP) {
 				BRAD.velocity.y = -100;
@@ -92,6 +94,9 @@ package
 				}
 			}
 			for each (var red:FlxSprite in reds.members) {
+				if (FlxG.keys.LEFT) {
+					red.scale.x -= 0.001;
+				}
 				if (red != null) {
 					Script.bounce_in_box(red, FlxG.width, 0, FlxG.height, 0);
 				}
