@@ -15,12 +15,17 @@ package state
 	public class S_Puz extends FlxState 
 	{
 		
+		private var start_node:FlxSprite;
+		private var end_node:FlxSprite;
+		
 		private var nodes:FlxGroup;
 		private var quads:FlxGroup;
 		private var empty_quads:Array;
 		private var odd_quads:Array;
 		private var even_quads:Array;
 		
+		private var odd_quads_nrs:Array;
+		private var even_quads_nrs:Array;
 		
 		private var active_vertices:Array;
 		private var active_edges:Array;
@@ -46,9 +51,11 @@ package state
 			active_vertices = new Array();
 			active_edges = new Array();
 			
-			odd_quads = new Array(0,0);
+			odd_quads = new Array();
+			even_quads = new Array();
+			odd_quads_nrs = new Array(0,0);
 			empty_quads = new Array(1, 2);
-			even_quads = new Array(3,3);
+			even_quads_nrs = new Array(3,3);
 			var s:FlxSprite;
 			for (var i:int = 0; i < quads.maxSize; i++) {
 				s = new FlxSprite;
@@ -59,20 +66,24 @@ package state
 				s.y = 32 + 96 * int(i / 2);
 				s.gx = (i % 2);
 				s.gy = int(i / 2);
-				if (odd_quads.indexOf(i) != -1) {
+				if (odd_quads_nrs.indexOf(i) != -1) {
+					odd_quads.push(s);
 					s.makeGraphic(64, 64, 0xffffffff);
 					s.visible = true;
 				}
-				if (even_quads.indexOf(i) != -1) {
+				if (even_quads_nrs.indexOf(i) != -1) {
+					even_quads.push(s);
 					s.makeGraphic(64, 64, 0xffff0000);
 					s.visible = true;
 				}
 				
 				s.debug_text = new FlxText(s.x, s.y, 50);
 				s.debug_text.color = 0x000000;
-				s.debug_text.size = 24;
+				s.debug_text.size = 36;
 				
 				add(s.debug_text);
+				
+				
 			}
 			
 			
@@ -89,11 +100,27 @@ package state
 				s.gx = (i % 3);
 				s.gy = int(i / 3);
 				
+				if (i == 6) {
+					start_node = s;
+					s.debug_text = new FlxText(s.x, s.y, 100);
+					s.debug_text.size = 25;
+					s.debug_text.color = 0xff0000;
+					s.debug_text.text = "1";
+					add(s.debug_text);
+				} else if (i == 0) {
+					end_node = s;
+					s.debug_text = new FlxText(s.x, s.y, 100);
+					s.debug_text.text = "2";
+					s.debug_text.size = 25;
+					s.debug_text.color = 0xff0000;
+					add(s.debug_text);
+				}
 			}
 			
 			
-			result_text = new FlxText(0, 0, 500);
-			result_text.size = 60;
+			result_text = new FlxText(20, 40, 500);
+			result_text.size = 80;
+			result_text.color = 0xff4444;
 			add(result_text);
 			FlxG.mouse.show();
 			
@@ -137,7 +164,6 @@ package state
 			// check to reset 
 			
 			if (FlxG.keys.justPressed("SPACE")) {
-				touched_vertex = null;
 				active_edges = new Array();
 				active_vertices = new Array();
 				var win:Boolean = true;
@@ -147,16 +173,19 @@ package state
 						
 					}
 				}
+				prev_vertex = null;
 				
-				for each (var q:FlxSprite in even_quads.members) {
+				for each (var q:FlxSprite in even_quads) {
 					if (q != null) {
+						trace("Even quad: ", parseInt(q.debug_text.text), " openings");
 						if (parseInt(q.debug_text.text) % 2 != 0) {
 							win = false;
 						}
 					}
 				}
-				for each (var q:FlxSprite in odd_quads.members) {
+				for each (var q:FlxSprite in odd_quads) {
 					if (q != null) {
+						trace("Odd quad: ", parseInt(q.debug_text.text), " openings");
 						if (parseInt(q.debug_text.text) % 2 != 1) {
 							win = false;
 						}
@@ -166,13 +195,14 @@ package state
 				result_text.visible = true;
 				result_text.alpha = 1;
 				if (win) {
-					result_text.text = "O";
+					result_text.text = "WIN";
 				} else {
-					result_text.text = "X";
+					result_text.text = "LOSE";
 				}
 				
 			}
 			
+			result_text.alpha -= 0.005;
 			
 			
 		}
