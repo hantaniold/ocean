@@ -88,7 +88,6 @@ package ent
 			}
 			super.update();
 		}
-		
 		protected function _state_no_scale():void {
 			if (_d > S_Ocean.h) {
 				_state = S_SCALE;
@@ -121,7 +120,8 @@ package ent
 			// Compute a new scaling factor.
 			a /= (S_Ocean.d_max - S_Ocean.h);
 			scale.y = scale.x = S_Ocean.scale_min +  (1 - a) * (1 - S_Ocean.scale_min);
-			
+			// Use cos lookup to do alpha
+			alpha = 1 - a;
 			// calculate x coord which is 
 			var big_w:Number = 2 * ew + FlxG.camera.width + width;
 			var ax:Number = _wx - (FlxG.camera.scroll.x  - ew - width);

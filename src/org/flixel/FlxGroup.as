@@ -61,6 +61,7 @@ package org.flixel
 			_sortIndex = null;
 		}
 		
+		
 		/**
 		 * Override this function to handle any deleting or "shutdown" type operations you might need,
 		 * such as removing traditional Flash children like Sprite objects.

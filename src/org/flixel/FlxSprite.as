@@ -155,6 +155,11 @@ package org.flixel
 		 */
 		protected var _matrix:Matrix;
 		
+		public var y_graphic_bottom:int;
+		public var gx:int;
+		public var gy:int;
+		public var debug_text:FlxText;
+		
 		/**
 		 * Creates a white 8x8 square <code>FlxSprite</code> at the specified position.
 		 * Optionally can load a simple, one-frame graphic instead.
@@ -420,6 +425,9 @@ package org.flixel
 		 */
 		override public function draw():void
 		{
+			
+			y_graphic_bottom = y + height - (height - height * scale.y) / 2;	
+			
 			if(_flickerTimer != 0)
 			{
 				_flicker = !_flicker;

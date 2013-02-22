@@ -89,6 +89,11 @@ package state
 			add(player);
 		}
 		
+		override public function draw():void 
+		{
+			parallaxers.sort("y_graphic_bottom");
+			super.draw();
+		}
 		
 		override public function destroy():void 
 		{
